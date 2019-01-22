@@ -1,0 +1,26 @@
+page-form-res {
+
+
+  .logo {
+    height: calc(100% - 64px);
+
+    .image {
+      padding-top: calc((60vh -  60vmin) / 2);
+      padding-left: 0% !important;
+      padding-right: 0% !important;
+      margin: 0% !important
+    }
+
+    ion-icon {
+      padding: 0% !important;
+      margin: 0% !important;
+      font-size: 60vmin;
+      display: block;
+      text-align: center;
+    }
+
+  }
+
+
+
+}

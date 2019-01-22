@@ -1,14 +1,54 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
+  <ion-toolbar color='dark'>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon *ngIf="ServerConection" color='secondary' name="checkmark-circle"></ion-icon>
+        <ion-icon *ngIf="!ServerConection" color='danger' name="close-circle"></ion-icon>
+      </button>
+      <button ion-button icon-only color="light" (click)="VerConfigPage()">
+        <ion-icon name="settings"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title text-center>Sanidad Vegetal UCO</ion-title>
+  </ion-toolbar>
 </ion-header>
 
+
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+
+
+
+
+  <button ion-button  block color='dark' (click)="VerForm3page('9898')">Audio</button>
+  <button ion-button  block color='dark' (click)="VerForm2page('9898')">Fotos</button>
+  <button ion-button  block color='dark' (click)="VerRespage(false)">False</button>
+  <button ion-button  block color='dark' (click)="VerRespage(true)">True</button>
+
+
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+    pullingIcon="refresh-circle">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <div class=logo>
+    <img src="../../assets/LogoUco.png" alt="Logo">
+  </div>
+
+
+
+  <div class=buttons>
+
+    <button  class=button ion-button icon-only color='dark' (click)='VerForm1page()'>
+      <ion-icon color="light" name="add"></ion-icon>
+    </button>
+
+     <button disabled=true class=button ion-button icon-only color='dark' (click)='VerSearchPage()'> 
+      <ion-icon color="light" name="search"></ion-icon>
+    </button>
+
+  </div>
+
+
 </ion-content>

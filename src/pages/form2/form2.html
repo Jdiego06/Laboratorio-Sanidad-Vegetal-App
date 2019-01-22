@@ -1,0 +1,61 @@
+<ion-header>
+
+    <ion-navbar color='dark'>
+        <ion-buttons end>
+          <button ion-button icon-only>
+            <ion-icon *ngIf="ServerConection" color='secondary' name="checkmark-circle"></ion-icon>
+            <ion-icon *ngIf="!ServerConection" color='danger' name="close-circle"></ion-icon>
+          </button>
+        </ion-buttons>
+        <ion-title text-center>Cargar Imágenes</ion-title>
+      </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="refresh-circle">
+        </ion-refresher-content>
+      </ion-refresher>
+
+  <div class='Upbutons'>
+    <ion-grid>
+      <ion-row>
+
+        <ion-col>
+          <button ion-button block color='dark' icon-start (click)="TakePicture(1)">
+            <ion-icon name="camera"></ion-icon>
+            Capturar
+          </button>
+        </ion-col>
+
+        <ion-col>
+          <button ion-button block color='dark' icon-start (click)="TakePicture(0)">
+            <ion-icon name="photos"></ion-icon>
+            Seleccionar
+          </button>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+
+  </div>
+
+  <div class='fotos'>
+
+    <div *ngIf="ButtonDisabled">
+      <img *ngFor="let item of [1,2,3,4,5]"  class='img1' src="../../assets/gallery.png">
+     </div>
+
+    <div *ngIf="!ButtonDisabled">
+      <img class='img2' *ngFor="let foto of fotosData" [src]='foto' />
+    </div>
+
+    <button [disabled]='ButtonDisabled' ion-button block icon-end large color='dark' (click)="SaveImages()">
+        Continuar
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+  </div>
+
+</ion-content>

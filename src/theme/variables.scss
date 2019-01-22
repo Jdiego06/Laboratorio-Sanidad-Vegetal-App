@@ -12,6 +12,10 @@ $font-path: "../assets/fonts";
 $app-direction: ltr;
 
 
+i{
+font-size: 80%;
+}
+
 @import "ionic.globals";
 
 
@@ -38,7 +42,8 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  uco:        #008352
 );
 
 

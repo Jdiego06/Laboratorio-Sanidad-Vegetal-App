@@ -1,0 +1,69 @@
+<ion-header>
+
+    <ion-navbar color='dark'>
+        <ion-buttons end>
+          <button ion-button icon-only>
+            <ion-icon *ngIf="ServerConection" color='secondary' name="checkmark-circle"></ion-icon>
+            <ion-icon *ngIf="!ServerConection" color='danger' name="close-circle"></ion-icon>
+          </button>
+        </ion-buttons>
+        <ion-title text-center>Cargar Audio</ion-title>
+      </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="refresh-circle">
+        </ion-refresher-content>
+      </ion-refresher>
+
+  <div *ngIf="!recording" class='mic'>
+    <ion-icon name="mic" color='dark'></ion-icon>
+  </div>
+
+  <div *ngIf="recording" class='mic'>
+    <ion-icon color='secondary' name="mic"></ion-icon>
+  </div>
+
+
+  <div class='cont'>
+      <ion-icon class='rec' *ngIf="!recording" (click)="startRecord()"><i class="fas fa-circle"></i></ion-icon>
+      <ion-icon class='stop' *ngIf="recording" (click)="stopRecord()"><i class="far fa-stop-circle"></i></ion-icon> 
+  </div>
+
+
+  <div class='back'>
+
+      <button disabled=true block  icon-start *ngIf="!recording&&!AudioReady" ion-button color='light'>
+          <ion-icon name="information-circle"></ion-icon>
+          No hay Audio
+        </button>
+    
+        <button disabled=true block (click)="PlayAudio()" icon-start *ngIf="recording" ion-button color='light'>
+          <ion-icon name="recording"></ion-icon>
+          Grabando Audio...
+        </button>
+    
+        <button block (click)="PlayAudio()" icon-start *ngIf="!playing&&AudioReady" ion-button color='light'>
+          <ion-icon name="play"></ion-icon>
+          Reproducir
+        </button>
+    
+        <button block icon-start *ngIf="playing&&AudioReady" (click)='StopAudio()' ion-button color='light'>
+          <ion-icon name="square"></ion-icon>
+          Detener
+        </button>
+  
+    <button class=continuar ion-button full large color='dark' (click)="GuardarReg()" icon-start>
+      <ion-icon>
+        <i class="fas fa-save"></i>
+      </ion-icon>
+      Guardar Registro
+    </button>
+
+  </div>
+
+</ion-content>

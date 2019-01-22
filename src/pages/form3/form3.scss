@@ -1,0 +1,60 @@
+page-form3 {
+
+
+  ion-icon {
+    display: block;
+    text-align: center !important;
+  }
+
+
+  .mic {
+    height: calc(79% - 96px) !important;
+
+    ion-icon {
+      font-size: 20vh;
+    }
+  }
+
+  .rec {
+    font-size: 25vmin;
+    color: #f53d3d !important;
+  }
+
+  .stop {
+    font-size: 25vmin;
+    color: dark;
+  }
+
+
+  .cont {
+    padding: 0% !important;
+    height: 20% !important;
+  }
+
+  .back {
+    height: 96px;
+  }
+
+  @media (orientation:landscape) {
+
+    .mic {
+      height: calc(35% - 32px) !important;
+
+      ion-icon {
+        font-size: 20vh;
+      }
+    }
+
+    .cont {
+      height: calc(53% - 32px) !important;
+    }
+
+
+
+  }
+
+
+
+
+
+}

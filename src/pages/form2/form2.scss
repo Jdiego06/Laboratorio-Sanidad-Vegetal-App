@@ -1,0 +1,40 @@
+page-form2 {
+
+  .Upbutons {
+    height: 64px;
+  }
+
+
+  .fotos {
+    height: calc(100% - 128px);
+  }
+
+
+  img {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+  }
+
+  .img1 {
+    width: calc((100vw - 43px) / 5);
+  }
+
+  .img2 {
+    width: calc((100vw - 43px) / 5);
+  }
+
+
+
+
+  @media (orientation: portrait) {
+
+    .img1 {
+      width: 50% !important;
+    }
+
+    .img2 {
+      width: 50% !important;
+    }
+  }
+}

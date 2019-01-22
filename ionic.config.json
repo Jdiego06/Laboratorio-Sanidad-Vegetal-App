@@ -1,5 +1,7 @@
 {
   "name": "Sanidad-Vegetal",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }

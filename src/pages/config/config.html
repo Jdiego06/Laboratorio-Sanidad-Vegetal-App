@@ -1,0 +1,68 @@
+<ion-header>
+
+  <ion-navbar color='dark'>
+    <ion-title>Configuración</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-grid>
+    <ion-row>
+
+      <ion-col col-8>
+        <ion-item>
+          <ion-icon name='link' item-start></ion-icon>
+          <ion-label floating>Url del servidor: </ion-label>
+          <ion-input [(ngModel)]="ip" value={{ip}} type="text"></ion-input>
+        </ion-item>
+      </ion-col>
+
+
+
+      <ion-col col-4>
+        <ion-item>
+          <ion-label floating>Puerto: </ion-label>
+          <ion-input [(ngModel)]="port" value={{port}} type="text"></ion-input>
+        </ion-item>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+  <br><br>
+  <button ion-button icon-start block (click)="TestConection()" color=dark>
+    <ion-icon>
+      <i class="fas fa-satellite-dish"></i>
+    </ion-icon>
+    Probar Conexión
+  </button>
+  <button ion-button block (click)="Save()" icon-start color=dark>
+    <ion-icon item-start>
+      <i class="fas fa-save"></i>
+    </ion-icon>
+    Guardar Configuración
+  </button>
+
+  <!-- <div style='height: 50%;'>
+
+  </div> -->
+
+  <ion-footer>
+    <ion-list inset>
+      <ion-list-header>
+        App diseñada por:
+      </ion-list-header>
+      <button ion-item>
+        María Camila Castrillón Gómez
+      </button>
+      <button ion-item>
+        Juan Diego Cardona Marín
+      </button>
+      <span></span>
+    </ion-list>
+  </ion-footer>
+
+</ion-content>

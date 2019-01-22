@@ -1,0 +1,104 @@
+<ion-header>
+
+  <ion-navbar color='dark'>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon *ngIf="ServerConection" color='secondary' name="checkmark-circle"></ion-icon>
+        <ion-icon *ngIf="!ServerConection" color='danger' name="close-circle"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title text-center>Nuevo Registro</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="refresh-circle">
+    </ion-refresher-content>
+  </ion-refresher>
+
+
+  <form [formGroup]="myForm" (ngSubmit)="saveData()">
+    <ion-list>
+
+      <ion-item>
+        <ion-icon item-start>
+          <i class="far fa-clipboard"></i>
+        </ion-icon>
+        <ion-label floating>Descripcion: </ion-label>
+        <ion-textarea formControlName="descripcion" type="text"></ion-textarea>
+      </ion-item>
+
+
+      <ion-item>
+        <ion-icon item-start>
+          <i class="fas fa-bug"></i>
+        </ion-icon>
+        <ion-label floating>Causa: </ion-label>
+        <ion-input formControlName="causa" type="text"></ion-input>
+      </ion-item>
+
+
+      <ion-item>
+        <ion-icon ios="ios-leaf" md="ios-leaf" item-start></ion-icon>
+        <ion-label floating>Cultivo: </ion-label>
+        <ion-input formControlName="cultivo" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon item-start>
+          <i class="fas fa-seedling"></i>
+        </ion-icon>
+        <ion-label floating>Método de Cultivo: </ion-label>
+        <ion-input formControlName="metodo_cultivo" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon item-start>
+          <i class="fas fa-warehouse"></i>
+        </ion-icon>
+        <ion-label floating>Método de Produccion: </ion-label>
+        <ion-input formControlName="metodo_produccion" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="nutrition" item-start></ion-icon>
+        <ion-label floating>Tipo de Fruto: </ion-label>
+        <ion-input formControlName="tipo_fruto" type="text"></ion-input>
+      </ion-item>
+
+
+      <ion-item>
+        <ion-icon name="pin" item-start></ion-icon>
+        <ion-label floating>Lugar de Procedencia: </ion-label>
+        <ion-input formControlName="lugar_procedencia" type="text"></ion-input>
+      </ion-item>
+
+
+      <ion-item>
+        <ion-icon item-start><i class="fas fa-syringe"></i></ion-icon>
+        <ion-label floating>Tratamiento Sugerido: </ion-label>
+        <ion-textarea formControlName="tratamiento_sugerido" type="text"></ion-textarea>
+      </ion-item>
+
+
+      <ion-item>
+        <ion-icon item-start><i class="far fa-id-card"></i></ion-icon>
+        <ion-label floating>Id del Analista: </ion-label>
+        <ion-input formControlName="analista" type='number'></ion-input>
+      </ion-item>
+
+    </ion-list>
+    <div>
+      <button large ion-button block icon-end color='dark' type="submit" [disabled]="!myForm.valid">
+        Continuar
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </div>
+  </form>
+
+
+</ion-content>
