@@ -17,38 +17,45 @@
 <ion-content padding>
 
 
-
-
-  <button ion-button  block color='dark' (click)="VerForm3page('9898')">Audio</button>
-  <button ion-button  block color='dark' (click)="VerForm2page('9898')">Fotos</button>
-  <button ion-button  block color='dark' (click)="VerRespage(false)">False</button>
-  <button ion-button  block color='dark' (click)="VerRespage(true)">True</button>
+  <!-- <button ion-button block color='dark' (click)="VerForm3page('5c47934da11a492e40e93dfc')">Audio</button>
+  <button ion-button block color='dark' (click)="VerForm2page('5c47934da11a492e40e93dfc')">Fotos</button>
+  <button ion-button block color='dark' (click)="VerRespage(false)">False</button>
+  <button ion-button block color='dark' (click)="VerRespage(true)">True</button> -->
 
 
 
   <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content
-    pullingIcon="refresh-circle">
+    <ion-refresher-content pullingIcon="refresh-circle">
     </ion-refresher-content>
   </ion-refresher>
 
   <div class=logo>
     <img src="../../assets/LogoUco.png" alt="Logo">
+    <br><br>
+  </div>
+
+  <div class='planta'>
+      <ion-icon  style="color:#dddddd"><i class="fas fa-spa"></i></ion-icon>
   </div>
 
 
 
-  <div class=buttons>
+  <ion-footer padding>
 
-    <button  class=button ion-button icon-only color='dark' (click)='VerForm1page()'>
-      <ion-icon color="light" name="add"></ion-icon>
-    </button>
+    <ion-grid>
+      <ion-row>
 
-     <button disabled=true class=button ion-button icon-only color='dark' (click)='VerSearchPage()'> 
-      <ion-icon color="light" name="search"></ion-icon>
-    </button>
+        <ion-col (click)='VerForm1page()'>
+          <ion-icon name="add" ></ion-icon>
+        </ion-col>
 
-  </div>
+        <ion-col (click)='VerSearchPage()'>
+          <ion-icon name="search"></ion-icon>
+        </ion-col>
 
+      </ion-row>
+    </ion-grid>
+
+  </ion-footer>
 
 </ion-content>

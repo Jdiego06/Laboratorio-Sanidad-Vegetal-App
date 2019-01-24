@@ -49,7 +49,7 @@ import { ArchivosProvider } from '../providers/archivos/archivos';
     IonicModule.forRoot(MyApp),
     HttpClientModule,
     IonicStorageModule.forRoot(),
-    
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -63,7 +63,7 @@ import { ArchivosProvider } from '../providers/archivos/archivos';
     FormResPage
   ],
   providers: [
-        StatusBar,
+    StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     RegistrosProvider,

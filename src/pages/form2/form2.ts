@@ -4,7 +4,7 @@ import { Form3Page } from './../../pages/form3/form3';
 import { FormResPage } from './../../pages/form-res/form-res';
 import { File } from '@ionic-native/file';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, LoadingController, AlertController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
 
@@ -23,22 +23,14 @@ export class Form2Page {
   fotosData: any[] = [];
   ButtonDisabled: boolean = true;
   RegisterFail: boolean = true;
-  ServerConection:boolean=false;
-
+  ServerConection: boolean = false;
+ 
   Cameraoptions: CameraOptions = {
     quality: 100,
     destinationType: this.camera.DestinationType.FILE_URI,
     encodingType: this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE,
     correctOrientation: true
-  }
-
-  GaleryOptions: CameraOptions = {
-    quality: 100,
-    destinationType: this.camera.DestinationType.FILE_URI,
-    encodingType: this.camera.EncodingType.JPEG,
-    mediaType: this.camera.MediaType.PICTURE,
-    correctOrientation: true,
   }
 
 
@@ -50,22 +42,16 @@ export class Form2Page {
     public archivos: ArchivosProvider,
     private viewCtrl: ViewController,
     public loadingCtrl: LoadingController,
-    public registro: RegistrosProvider
-
+    public registro: RegistrosProvider,
+    public alertCtrl:AlertController
   ) { }
 
   ionViewWillEnter() {
-    console.log('Pagina principal');
     this.TestConection();
   };
 
-  ionViewWillLeave() {
-    if (this.RegisterFail == true) {
-      console.log('Se borrará el registro con id: ' + this._id);
-      this.registro.BorrarRegistro(this._id)
-    }
-  }
-  
+
+
   ionViewDidLoad() {
     this._id = this.navParams.get('_id')
   }
@@ -92,6 +78,7 @@ export class Form2Page {
       this.ServerConection = true;
       refresher.complete();
     }).catch(() => {
+
       this.ServerConection = false;
       refresher.complete();
     });
@@ -99,11 +86,10 @@ export class Form2Page {
 
 
 
-
-
   TakePicture(from) {
 
     this.ButtonDisabled = false;
+
 
     let loading = this.loadingCtrl.create({
       content: 'Por Favor Espere...'
@@ -154,27 +140,36 @@ export class Form2Page {
       }, (err) => {
         console.log(err);
       });
-
-    }
+    };
   };
 
 
   SaveImages() {
 
-    let loading = this.loadingCtrl.create({
-      content: 'Por Favor Espere...'
-    });
+    if(this.ButtonDisabled) {
+      const alert = this.alertCtrl.create({
+        title: 'Debe seleccionar al menos una fotografía',
+        subTitle: 'Para continuar agregue fotografías al registro',
+        buttons: ['OK']
+      });
+      alert.present();
+    } else {
 
-    loading.present();
+      let loading = this.loadingCtrl.create({
+        content: 'Por Favor Espere...'
+      });
+      loading.present();
 
-    this.archivos.SubirImagen(this.fotosPath, this._id).then(() => {
-      loading.dismiss();
-      this.RegisterFail = false;
-      this.VerForm3Page(this._id);
-    }).catch(() => {
-      loading.dismiss();
-      this.VerFormResPage(false);
-    });
+      this.archivos.SubirImagen(this.fotosPath, this._id)
+        .then(() => {
+          loading.dismiss();
+          this.RegisterFail = false;
+          this.VerForm3Page(this._id);
+        }).catch(() => {
+          loading.dismiss();
+          this.VerFormResPage(false);
+        });
+    }
   };
 
 

@@ -13,6 +13,7 @@ import { Form1Page } from './../form1/form1';
 // Providers
 
 import { RegistrosProvider } from './../../providers/registros/registros';
+import { ArchivosProvider } from './../../providers/archivos/archivos';
 
 
 
@@ -25,7 +26,7 @@ import { RegistrosProvider } from './../../providers/registros/registros';
 export class HomePage {
 
 
-  ServerConection = false;
+  ServerConection;
   _id: string = '';
   RegisterFail: boolean = true;
 
@@ -35,7 +36,8 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public registro: RegistrosProvider,
-    public navParams:NavParams
+    public navParams: NavParams,
+    public archivo: ArchivosProvider
   ) { }
 
 
@@ -87,25 +89,25 @@ export class HomePage {
 
 
   VerForm1page() {
-    console.log('Ver formulario 1');
+    console.log('Ver formulario');
     this.navCtrl.push(Form1Page)
-    
-
   }
 
-  VerForm3page() {
-    console.log('Ver form3Page');
-    this.navCtrl.push(Form3Page)
+  VerForm3page(_id) {
+    console.log('Ver AudioPage');
+    this.navCtrl.push(Form3Page, { _id: _id })
   }
 
   VerRespage(ok) {
-    console.log('Ver ResPage');
-    this.navCtrl.push(FormResPage,{ok:ok});
+    console.log('Ver RespuestaPage');
+    this.navCtrl.push(FormResPage, { ok: ok });
   }
 
   VerForm2page(_id) {
-    console.log('Ver ResPage');
-    this.navCtrl.push(Form2Page,{_id:_id});
+    console.log('Ver ImagenesPage');
+    this.navCtrl.push(Form2Page, { _id: _id });
   }
+
+
 
 }

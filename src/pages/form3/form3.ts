@@ -2,10 +2,9 @@ import { RegistrosProvider } from './../../providers/registros/registros';
 import { ArchivosProvider } from './../../providers/archivos/archivos';
 import { FormResPage } from './../form-res/form-res';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
 import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
-
 
 
 @IonicPage()
@@ -17,13 +16,15 @@ export class Form3Page {
 
   _id: string = '';
   recording: boolean = false;
+  pause: boolean = false;
+
   filePath: string;
   fileName: string = 'audio0.mp3';
   audio: MediaObject;
   AudioReady: boolean = false;
   playing: boolean = false;
   RegisterFail: boolean = true;
-  ServerConection:boolean=true;
+  ServerConection: boolean = true;
 
   constructor(
     public navCtrl: NavController,
@@ -32,7 +33,8 @@ export class Form3Page {
     public file: File,
     public viewCtrl: ViewController,
     public archivo: ArchivosProvider,
-    public registro: RegistrosProvider
+    public registro: RegistrosProvider,
+    public loadingCtrl: LoadingController
 
   ) { }
 
@@ -41,16 +43,16 @@ export class Form3Page {
   };
 
   ionViewWillEnter() {
-    console.log('Pagina principal');
     this.TestConection();
   };
 
   ionViewWillLeave() {
     if (this.RegisterFail == true) {
       console.log('Se borrará el registro con id: ' + this._id);
-      this.registro.BorrarRegistro(this._id)
+      this.registro.BorrarRegistro(this._id).catch(() => { });
     };
   };
+
 
   // Pruba la conexion con el rest server
 
@@ -80,7 +82,6 @@ export class Form3Page {
 
 
 
-
   startRecord() {
     this.AudioReady = false;
     this.filePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + this.fileName;
@@ -90,6 +91,22 @@ export class Form3Page {
   }
 
 
+  pauseRecord() {
+    setTimeout(() => {
+      this.audio.pauseRecord();
+    }, 500);
+    this.recording = false;
+    this.pause = true;
+  }
+
+
+  resumeRecord() {
+    this.pause = false;
+    this.recording = true;
+    this.audio.resumeRecord();
+  }
+
+  
   stopRecord() {
     setTimeout(() => {
       this.audio.stopRecord();
@@ -99,7 +116,9 @@ export class Form3Page {
 
     this.recording = false;
     this.AudioReady = true;
+    this.pause = false;
   }
+
 
   PlayAudio() {
     this.playing = true;
@@ -117,22 +136,34 @@ export class Form3Page {
   }
 
 
+  BorrarAudio() {
+    this.audio = undefined;
+    this.AudioReady = false;
+  }
 
+  
   GuardarReg() {
 
+    let loading = this.loadingCtrl.create({
+      content: 'Por Favor Espere...'
+    });
+    loading.present();
 
     if (!this.audio) {
       this.RegisterFail = false;
       this.VerFormResPage(true)
     } else {
-      this.archivo.SubirAudio(this.filePath, this._id).then(() => {
-        console.log('Se subio El archivo');
-        this.RegisterFail = false;
-        this.VerFormResPage(true);
-      }).catch((err) => {
-        console.log(err);
-        this.VerFormResPage(false);
-      });
+      this.archivo.SubirAudio(this.filePath, this._id)
+        .then(() => {
+          console.log('Se subio El archivo');
+          this.RegisterFail = false;
+          loading.dismiss();
+          this.VerFormResPage(true);
+        })
+        .catch(() => {
+          loading.dismiss();
+          this.VerFormResPage(false);
+        });
     };
   };
 

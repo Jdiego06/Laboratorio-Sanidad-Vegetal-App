@@ -10,31 +10,45 @@ page-form2 {
   }
 
 
+
+
   img {
     border: 1px solid #ddd;
     border-radius: 4px;
     padding: 5px;
+    margin: 4px;
   }
 
   .img1 {
-    width: calc((100vw - 43px) / 5);
+    width: calc((100vw - 75px) / 5);
   }
 
   .img2 {
-    width: calc((100vw - 43px) / 5);
+    width: calc((100vw - 75px) / 5);
   }
 
+  ion-col {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
 
+  .btn2 {
+    margin-left: 4px !important;
+  }
+
+  .btn1 {
+    margin-right: 4px !important;
+  }
 
 
   @media (orientation: portrait) {
 
     .img1 {
-      width: 50% !important;
+      width: calc(50% - 8px) !important;
     }
 
     .img2 {
-      width: 50% !important;
+      width: calc(50% - 8px) !important;
     }
   }
 }

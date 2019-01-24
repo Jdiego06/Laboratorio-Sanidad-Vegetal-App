@@ -2,7 +2,7 @@ import { FormResPage } from './../form-res/form-res';
 import { Form2Page } from './../form2/form2';
 import { RegistrosProvider } from './../../providers/registros/registros';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, LoadingController, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
@@ -24,7 +24,8 @@ export class Form1Page {
     public navParams: NavParams,
     public formBuilder: FormBuilder,
     public registro: RegistrosProvider,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    public alertCtrl: AlertController
   ) {
     this.myForm = this.createMyForm();
   }
@@ -77,25 +78,37 @@ export class Form1Page {
   };
 
 
-  
+
   saveData() {
 
-    let loading = this.loadingCtrl.create({
-      content: 'Por Favor Espere...'
-    });
+    if (!this.myForm.valid) {
+      const alert = this.alertCtrl.create({
+        title: 'Aún hay campos vacíos',
+        subTitle: 'Para continuar llene los campos obligatorios marcados con *',
+        buttons: ['OK']
+      });
+      alert.present();
+    } else {
 
-    loading.present();
 
-    this.registro.EnviarRegistro(this.myForm.value).then((res: any) => {
-      console.log('Navega Capturar imagenes, id: ' + res._id);
-      loading.dismiss();
-      this.VerForm2Page(res._id);
-    }).catch((err) => {
+      let loading = this.loadingCtrl.create({
+        content: 'Por Favor Espere...'
+      });
 
-      console.log('Navega Pagina de error' + err);
-      loading.dismiss();
-      this.VerFormResPage(false);
-    });
+      loading.present();
+
+      this.registro.EnviarRegistro(this.myForm.value)
+        .then((res: any) => {
+          console.log('Navega Capturar imagenes, id: ' + res._id);
+          loading.dismiss();
+          this.VerForm2Page(res._id);
+        })
+        .catch(() => {
+          console.log('Navega Pagina de error');
+          loading.dismiss();
+          this.VerFormResPage(false);
+        });
+    }
   };
 
 
@@ -109,10 +122,10 @@ export class Form1Page {
 
 
   VerForm2Page(_id) {
-    this.navCtrl.push(Form2Page, { _id: _id})
+    this.navCtrl.push(Form2Page, { _id: _id })
     setTimeout(() => {
       this.viewCtrl.dismiss();
     }, 500);
   };
-  
+
 };

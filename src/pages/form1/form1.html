@@ -28,7 +28,7 @@
         <ion-icon item-start>
           <i class="far fa-clipboard"></i>
         </ion-icon>
-        <ion-label floating>Descripcion: </ion-label>
+        <ion-label floating><span>*</span>Descripción: </ion-label>
         <ion-textarea formControlName="descripcion" type="text"></ion-textarea>
       </ion-item>
 
@@ -37,14 +37,14 @@
         <ion-icon item-start>
           <i class="fas fa-bug"></i>
         </ion-icon>
-        <ion-label floating>Causa: </ion-label>
+        <ion-label floating><span>*</span>Causa: </ion-label>
         <ion-input formControlName="causa" type="text"></ion-input>
       </ion-item>
 
 
       <ion-item>
         <ion-icon ios="ios-leaf" md="ios-leaf" item-start></ion-icon>
-        <ion-label floating>Cultivo: </ion-label>
+        <ion-label floating><span>*</span>Cultivo: </ion-label>
         <ion-input formControlName="cultivo" type="text"></ion-input>
       </ion-item>
 
@@ -87,13 +87,15 @@
 
       <ion-item>
         <ion-icon item-start><i class="far fa-id-card"></i></ion-icon>
-        <ion-label floating>Id del Analista: </ion-label>
+        <ion-label floating><span>*</span>Id del Analista: </ion-label>
         <ion-input formControlName="analista" type='number'></ion-input>
       </ion-item>
 
     </ion-list>
     <div>
-      <button large ion-button block icon-end color='dark' type="submit" [disabled]="!myForm.valid">
+
+
+      <button large ion-button block icon-end color='dark' type="submit">
         Continuar
         <ion-icon name="arrow-forward"></ion-icon>
       </button>

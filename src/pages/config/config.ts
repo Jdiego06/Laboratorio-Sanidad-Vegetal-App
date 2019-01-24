@@ -26,10 +26,6 @@ export class ConfigPage {
   }
 
 
-  ionViewWillLeave() {
-    this.GuardarConfig();
-  }
-
 
   TestConection() {
 
@@ -100,8 +96,8 @@ export class ConfigPage {
     });
   }
 
-  GuardarConfig() {
 
+  GuardarConfig() {
     return new Promise((resolve, reject) => {
       this.storage.set('UrlServer', this.ip).then(() => {
         this.storage.set('PortServer', this.port).then(() => {

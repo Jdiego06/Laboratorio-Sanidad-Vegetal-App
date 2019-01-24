@@ -1,54 +1,58 @@
 page-home {
 
+
   .logo {
-    height: 20%;
-    text-align: center;
-    margin-top: 1vh;
+    margin-top: 10vh !important;
+    display: block !important;
+    text-align: center
   }
 
-  .buttons {
-    width: 100%;
-    height: 50%;
-    text-align: center;
-    margin-top: 10%;
-    padding: 0;
-    
-    .button {
-      width: 40vmin;
-      height: 40vmin;
-      margin: 1% 2% 0% 3%;
-      padding: 0;
-      font-size: 14vmin;
+  .planta {
+    text-align: center !important;
+
+    ion-icon {
+      font-size: 30vh !important;
+      color: #C0E48E !important;
     }
+
   }
 
 
-
-
-  @media all and (orientation: portrait) {
-    .logo img {
-      height: 15vmax;
-      margin-top: 10%
+  ion-footer {
+    ion-col {
+      border: solid #dddddd;
+      text-align: center !important;
+      margin: 5px !important;
+      color: dark !important;
     }
 
-    .buttons {
-      margin-top: 30%;
-    }
-  }
-
-  @media all and (orientation:landscape) {
-
-    .logo img {
-      height: 15vmax;
-    }
-
-    .buttons {
-      margin-top: 10%;
+    ion-icon {
+      padding: 0% !important;
+      margin: 0% !important;
+      // background-color: blue;
+      font-size: 15vh;
+      color: primary !important;
     }
   }
 
+  @media(orientation: landscape) {
 
+    .logo {
+      padding: 0% !important;
+      margin: 0% !important;
 
+      img {
+        width: 25vw !important;
+      }
+    }
 
+    .planta {
+      text-align: center !important;
 
+      ion-icon {
+        font-size: 25vh !important;
+      }
+    }
+
+  }
 }
