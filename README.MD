@@ -2,7 +2,7 @@ Aplicacion para el laboratorio de sanidad vegetal de la Universidad Católica de
 
 Permite enviar registros hacia un rest server, capura imagenes y graba audio
 
-para descargra los paquetes ejecute el siguiente comando:
+para descargar los paquetes ejecutar el siguiente comando:
 
 
-``` npm init```
+``` npm i```
