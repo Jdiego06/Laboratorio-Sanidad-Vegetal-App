@@ -1,0 +1,23 @@
+[33mcommit 58e46cc92eb0a7d42bcbfdec7260dfbb86edcf3a[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Juan Diego <jd99@outlook.com>
+Date:   Fri Jan 25 19:55:09 2019 -0500
+
+    cuarto commit, se agrega la seccion de detalles del registro seleccionado, y se limpian los códigos
+
+[33mcommit 7a468988bbe0d62ec51ccf9df7761f5cee88b6b4[m
+Author: Juan Diego <jd99@outlook.com>
+Date:   Thu Jan 24 18:12:13 2019 -0500
+
+    Tercer commit, se modifica parte de la interfaz gráfica, se agrega función de busqueda, se hacen mejoras generales, y correccion de errores
+
+[33mcommit 2464b3d80e9ab6f08a756186ffd8ab9e99bb0151[m
+Author: Juan Diego <jd99@outlook.com>
+Date:   Mon Jan 21 20:37:28 2019 -0500
+
+    Segundo Commit, se implmentaron las funcionalidades básicas para enviar registros hacia el servidor (formulario,imagenes,audio)
+
+[33mcommit ee64c305358ea99695a03a8a203c5994780ab55d[m
+Author: Juan Diego <jd99@outlook.com>
+Date:   Wed Jan 16 08:18:13 2019 -0500
+
+    Initial commit

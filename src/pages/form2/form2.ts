@@ -1,12 +1,25 @@
-import { RegistrosProvider } from './../../providers/registros/registros';
-import { ArchivosProvider } from './../../providers/archivos/archivos';
-import { Form3Page } from './../../pages/form3/form3';
-import { FormResPage } from './../../pages/form-res/form-res';
-import { File } from '@ionic-native/file';
+// Recursos de angular
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, LoadingController, AlertController } from 'ionic-angular';
+
+// Recursos Nativos
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { DomSanitizer } from '@angular/platform-browser';
+import { File } from '@ionic-native/file';
+
+// Páginas
+import { Form3Page } from './../../pages/form3/form3';
+import { FormResPage } from './../../pages/form-res/form-res';
+
+// Providers
+import { RegistrosProvider } from './../../providers/registros/registros';
+import { ArchivosProvider } from './../../providers/archivos/archivos';
+
+
+// ---------------------------------------------------
+//                                                  --
+//     Página para subir imágenes al servidor       --
+//                                                  --
+// ---------------------------------------------------
 
 
 
@@ -26,6 +39,7 @@ export class Form2Page {
   RegisterFail: boolean = true;
   ServerConection: boolean = false;
   foto: any;
+  Saved:boolean=false;
 
   Cameraoptions: CameraOptions = {
     quality: 100,
@@ -46,19 +60,20 @@ export class Form2Page {
     public loadingCtrl: LoadingController,
     public registro: RegistrosProvider,
     public alertCtrl: AlertController,
-    public sanitizer: DomSanitizer
   ) { }
+
 
   ionViewWillEnter() {
     this.TestConection();
   };
 
-
+// Obtiene el id del registro, al cual se asociarán las imágenes
 
   ionViewDidLoad() {
     this._id = this.navParams.get('_id')
   }
 
+  // Borra el registro del servidor, si el usuario sale de la página, sin haber guardado
 
   ionViewWillLeave() {
     if (this.RegisterFail == true) {
@@ -68,7 +83,48 @@ export class Form2Page {
   };
 
 
-  // Pruba la conexion con el rest server
+  // Pregunta al usuario se desea abandonar la página
+
+  async  ionViewCanLeave() {
+
+    let res = false;
+    let prom1 = new Promise((resolve, reject) => {
+
+      if (this.Saved == false) {
+
+        const confirm = this.alertCtrl.create({
+          title: 'Abandonar Página',
+          message: 'Si abandona la página en este momento, el registro no se guardará.',
+          buttons: [
+            {
+              text: 'Cancelar',
+              handler: () => {
+                res = false;
+                resolve();
+              }
+            },
+            {
+              text: 'Aceptar',
+              handler: () => {
+                res = true;
+                resolve();
+              }
+            }
+          ]
+        });
+        confirm.present();
+      } else {
+        resolve();
+        res = true;
+      }
+    });
+
+    await prom1;
+    return (res)
+  }
+
+
+  // Pruba la conexion con el servidor
 
   TestConection() {
     this.registro.TestConexion().then(() => {
@@ -96,6 +152,7 @@ export class Form2Page {
   };
 
 
+// Toma una foto con la cámara del dispositivo, o selecciona una de la galeria
 
   TakePicture(from) {
 
@@ -124,13 +181,14 @@ export class Form2Page {
         this.ButtonDisabled = true;
       };
     });
-    console.log(this.foto);
-  }
+  };
 
 
-  
+  // Carga fotografia en base64 al vector imageData para que pueda ser mostrada por la visa
+  // (Esta operacion es ineficiente, debe reemplazarse; La vista debe cargar la fotografia, 
+  // haciendo uso del path de la misma)
+
   MostarImagen(imageData, from) {
-
 
     if (from == 0) {
       let filename = imageData.substring((imageData.lastIndexOf('/') + 1), imageData.lastIndexOf('?'));
@@ -155,13 +213,17 @@ export class Form2Page {
   };
 
 
+  // Guarda las imágenes en el servidor
+
   SaveImages() {
+
+    this.Saved = true;
 
     if (this.ButtonDisabled) {
       const alert = this.alertCtrl.create({
         title: 'Debe seleccionar al menos una fotografía',
         subTitle: 'Para continuar agregue fotografías al registro',
-        buttons: ['OK']
+        buttons: ['Aceptar']
       });
       alert.present();
     } else {
@@ -183,6 +245,9 @@ export class Form2Page {
     }
   };
 
+
+// Navega a la página de respuesta, si la operacion de cargar fotografías falla,
+// o a la pagina de grabar audio, si estas se cargaron correctamente
 
   VerFormResPage(ok) {
     this.navCtrl.push(FormResPage, { ok: ok })

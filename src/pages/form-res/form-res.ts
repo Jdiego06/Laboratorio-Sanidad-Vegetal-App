@@ -1,6 +1,17 @@
-import { HomePage } from './../home/home';
+// Recursos de angular
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+
+
+// Páginas
+import { HomePage } from './../home/home';
+
+
+// -----------------------------------------------------------------------
+//                                                                      --
+//    Pagina de respuesta de registro guardado, o fallo al guardar      --
+//                                                                      --
+// -----------------------------------------------------------------------
 
 
 @IonicPage()
@@ -10,18 +21,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class FormResPage {
 
-  Done:boolean=false;
+  Done: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams
+  ) { }
 
+  
   ionViewDidLoad() {
-    this.Done= this.navParams.get('ok')
-  }
+    this.Done = this.navParams.get('ok')
+  };
 
 
-  irHome(){
+  irHome() {
     this.navCtrl.popTo(HomePage)
-  }
+  };
 
 }

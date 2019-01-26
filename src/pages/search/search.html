@@ -21,22 +21,64 @@
 
   <br><br>
 
-
   <ion-card *ngFor="let registro of results;let i=index" (click)="VerRegistro(registro)">
+
     <ion-card-header>
+
       <ion-item-divider color="light">
         <h2><b>{{registro.fecha_creacion.fecha}}</b></h2>
-      </ion-item-divider>
-      <br>
-      <b>Cultivo: </b>{{registro.cultivo}}
-      <br><br>
-      <b>Causa: </b>{{registro.causa}}
-      <br><br>
-      <b>Analista: </b>{{registro.analista}}
+      </ion-item-divider><br>
+
+      <div *ngIf="registro.causa">
+        <b>Causa: </b>{{registro.causa.split(' ').slice(0 , 5).join(' ')}}
+        <br><br>
+      </div>
+
+      <div *ngIf="registro.cultivo">
+        <b>Cultivo: </b>{{registro.cultivo.split(' ').slice(0 , 5).join(' ')}}
+        <br><br>
+      </div>
+
+
+      <div *ngIf="registro.metodo_cultivo">
+        <b>Método de cultivo: </b>{{registro.metodo_cultivo.split(' ').slice(0 , 5).join(' ')}}
+        <br><br>
+      </div>
+
+      <div *ngIf="registro.metodo_produccion">
+        <b>Método de Producción: </b>{{registro.metodo_produccion.split(' ').slice(0 , 5).join(' ')}}
+        <br><br>
+      </div>
+
+
+      <div *ngIf="registro.tipo_fruto">
+        <b>Tipo de fruto: </b>{{registro.tipo_fruto.split(' ').slice(0 , 5).join(' ')}}
+        <br><br>
+      </div>
+
+      <div *ngIf="registro.lugar_procedencia">
+        <b>Lugar de Procedencia: </b>{{registro.lugar_procedencia.split(' ').slice(0 , 5).join(' ')}}
+        <br><br>
+
+      </div>
+      <div *ngIf="registro.analista">
+        <b>Analista: </b>{{registro.analista}}
+      </div>
+
     </ion-card-header>
+
     <ion-card-content>
-      <b>Descripcion: </b>{{registro.descripcion.split(' ').slice(0 , 20).join(' ')}}...
-      <br><br>
+
+      <div *ngIf="registro.descripcion">
+        <b>Descripcion: </b>{{registro.descripcion.split(' ').slice(0 , 20).join(' ')}}...
+        <br><br>
+      </div>
+
+      <div *ngIf="registro.tratamiento_sugerido">
+        <b>Tratamiento Sugerido: </b>{{registro.tratamiento_sugerido.split(' ').slice(0 , 20).join(' ')}}...
+        <br><br>
+      </div>
+
     </ion-card-content>
   </ion-card>
 

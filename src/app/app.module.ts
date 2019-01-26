@@ -1,5 +1,4 @@
 // Módulos de angular
-
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -15,7 +14,6 @@ import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { Media } from '@ionic-native/media';
 import { IonicStorageModule } from '@ionic/storage';
 
-
 // Páginas
 import { HomePage } from '../pages/home/home';
 import { SearchPage } from './../pages/search/search';
@@ -25,7 +23,6 @@ import { Form3Page } from './../pages/form3/form3';
 import { Form2Page } from './../pages/form2/form2';
 import { FormResPage } from './../pages/form-res/form-res';
 import { RegistroDetallePage } from './../pages/registro-detalle/registro-detalle';
-
 
 // Providers
 import { RegistrosProvider } from '../providers/registros/registros';

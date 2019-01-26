@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="co.wedoiot.app001" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>SaVe</name>
+<widget id="co.wedoiot.app001" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Save It</name>
     <description>Aplicación, para el control de registros en el laboratorio de sanidad vegetal de la Universidad Católica de Oriente</description>
     <author email="jd99@outlook.com" href="https://wedoiot.co/">Juan Diego Cardona Marín</author>
     <content src="index.html" />

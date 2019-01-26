@@ -2,6 +2,10 @@ import { Storage } from '@ionic/storage';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+
+// Provedor que maneja las solicitudes HTTP para la manipulacion de registros
+
+
 @Injectable()
 export class RegistrosProvider {
 
@@ -9,6 +13,7 @@ export class RegistrosProvider {
   UrlRestServer: string = '192.168.1.105';
   PortRestServer: string = '3000';
   FullUrl: string = ''
+  resp: boolean = false
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -17,13 +22,13 @@ export class RegistrosProvider {
   };
 
 
-  resp: boolean = false
+  constructor(
+    public http: HttpClient,
+    private storage: Storage
+  ) { }
 
 
-  constructor(public http: HttpClient, private storage: Storage) {
-  }
-
-
+  // Prueba simple de conexíon con el servidor
 
   async TestConexion() {
 
@@ -42,8 +47,15 @@ export class RegistrosProvider {
         }, () => {
           reject();
         });
+      setTimeout(() => {
+        reject();
+      }, 5000);
     });
   };
+
+
+  // recibe un objeto de datos, y lo envia al servidor, el cual 
+  // devuelve el id con el que se creó
 
   async EnviarRegistro(datos) {
 
@@ -67,7 +79,7 @@ export class RegistrosProvider {
   };
 
 
-
+  //  Borra del servidor el registro asociado al id enviado
 
   async BorrarRegistro(_id: string) {
 
@@ -86,10 +98,14 @@ export class RegistrosProvider {
 
 
 
+  // Obtiene todos los registros del servidor, que contienen el campo "query" asociado 
+  // a la llave "parametro", de manera páginada, de 10 en 10 
+  // ( esta función es ineficiente, Se deberia enviar el campo "parametro", 
+  // y no el índice asociado al vector parametroDB)
+
   async ObtenerRegistros(parametro, query, pagina) {
 
     await this.leerConfig();
-
 
     let parametrosBD = [
       'cultivo',
@@ -126,6 +142,9 @@ export class RegistrosProvider {
     });
   };
 
+
+  // Lee la configuracion de ip y puerto del almacenamiento nativo, 
+  // esta es utilizada para hacer las peticiones http
 
   async leerConfig() {
 

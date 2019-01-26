@@ -1,9 +1,19 @@
-import { RegistroDetallePage } from './../registro-detalle/registro-detalle';
-import { RegistrosProvider } from './../../providers/registros/registros';
+// Recursos de angular
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+// Páginas
+import { RegistroDetallePage } from './../registro-detalle/registro-detalle';
 
+// Providers
+import { RegistrosProvider } from './../../providers/registros/registros';
+
+
+// -----------------------------------------------
+//                                              --
+//          Página para buscar registros        --
+//                                              --
+// -----------------------------------------------
 
 @IonicPage()
 @Component({
@@ -13,6 +23,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class SearchPage {
 
   parametro: any;
+  query: string = '';
+  page: number = 1;
+  results: any[] = [];
+  desplazamiento: boolean = true;
 
   parametros: string[] = [
     'Cultivo',
@@ -26,13 +40,6 @@ export class SearchPage {
     'Tratamiento sugerido'
   ];
 
-
-  query: string = '';
-  page: number = 1;
-  results: any[] = [];
-  desplazamiento: boolean = true;
-
-
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -40,10 +47,14 @@ export class SearchPage {
   ) { }
 
 
+  // Limpia el vector de resultados
+
   ClearReg() {
     this.results = [];
     this.query = '';
   }
+
+  // Hace una consulta al servidor cada vez que se cambia la barra de búsqueda
 
   onInput() {
 
@@ -59,6 +70,8 @@ export class SearchPage {
     };
   };
 
+
+  // Navega a la pagina de ver registro detallado
 
   VerRegistro(registro) {
     this.navCtrl.push(RegistroDetallePage, registro)

@@ -1,8 +1,22 @@
-import { Media, MediaObject } from '@ionic-native/media';
-import { File } from '@ionic-native/file';
-import { ArchivosProvider } from './../../providers/archivos/archivos';
+// Recursos de angular
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+
+// Providers
+import { ArchivosProvider } from './../../providers/archivos/archivos';
+
+// Recursos nativos
+import { Media, MediaObject } from '@ionic-native/media';
+import { File } from '@ionic-native/file';
+
+
+// ------------------------------------------------------------------------
+//                                                                       --
+//      Página que muestra la informacion detallada de un registro       --
+//                                                                       --
+// ------------------------------------------------------------------------
+
+
 
 
 @IonicPage()
@@ -46,6 +60,9 @@ export class RegistroDetallePage {
   ) { }
 
 
+
+  // Descarga toda la informacion correspondiente a un registro
+
   async ionViewDidLoad() {
 
     let loading = this.loadingCtrl.create({
@@ -75,15 +92,22 @@ export class RegistroDetallePage {
     };
 
     loading.dismiss();
+
   };
 
+
+  //  Borra el directorio donde se almacena el audio al salir
 
   ionViewWillLeave() {
     this.audio = undefined;
     this.archivo.BorrarDir(this.pathImg, 1);
   }
 
- MostarImagen(imageData) {
+
+  // Carga las imagenes en base64 al vector imageData,
+  //  esto es ineficiente (ver MostrarImagen en form2Page)
+
+  MostarImagen(imageData) {
 
     this.fotosData = [];
 
@@ -100,6 +124,9 @@ export class RegistroDetallePage {
     });
   };
 
+
+  // Reproduce el objeto de audio
+
   PlayAudio() {
     this.audio.setVolume(1);
     setTimeout(() => {
@@ -108,6 +135,8 @@ export class RegistroDetallePage {
     this.audio.play();
     this.playing = true
   };
+
+  // Detiene la reproducción del audio
 
   StopAudio() {
     this.audio.stop();

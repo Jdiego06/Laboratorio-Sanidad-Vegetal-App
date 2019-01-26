@@ -5,6 +5,9 @@ import { Storage } from '@ionic/storage';
 import { Injectable } from '@angular/core';
 
 
+// Provedor que maneja las solicitudes HTTP para la manipulacion de archivos
+
+
 @Injectable()
 
 export class ArchivosProvider {
@@ -12,7 +15,6 @@ export class ArchivosProvider {
   UrlRestServer = '192.168.1.105';
   PortRestServer = '3000';
   FullUrl: string = ''
-
   fileTransfer: FileTransferObject;
 
   optionsImage: FileUploadOptions = {
@@ -36,22 +38,23 @@ export class ArchivosProvider {
     public storage: Storage,
     public platform: Platform
   ) {
-
     this.platform.ready().then(() => {
       this.fileTransfer = this.transfer.create();
     });
   }
 
 
+  // Recibe un vector de nombres de fotos y las descarga todas del servidor, 
+  // retorna el vector con los path de las mismas
 
   async DescargarImagenes(fotos) {
 
     await this.leerConfig();
 
-
     return new Promise((resolve, reject) => {
 
       let imgs = [];
+      let resp = 0;
 
       for (let i = 0; i < fotos.length; i++) {
 
@@ -63,9 +66,10 @@ export class ArchivosProvider {
           this.file.dataDirectory + `img${i}.jpg`
         )
           .then((res) => {
+            resp++;
             let file = res.toURL();
             imgs.push(file);
-            if (i == (fotos.length - 1)) {
+            if (resp == (fotos.length)) {
               resolve(imgs);
             }
           })
@@ -77,11 +81,12 @@ export class ArchivosProvider {
   }
 
 
+  // Descarga un audio del sevidor, de acuerdo a su nombre, y devuelve el path del mismo
+
   async DescargarAudio(name) {
 
     await this.leerConfig();
     let UrlAudio = this.FullUrl + `/archivos/audio/${name}`
-
 
     return new Promise((resolve, reject) => {
 
@@ -100,6 +105,7 @@ export class ArchivosProvider {
   };
 
 
+  // Recibe un vector de paths de imagenes, y las sube al servidor
 
   async SubirImagen(fotos: any[], _id) {
 
@@ -109,7 +115,6 @@ export class ArchivosProvider {
     let UrlImg = this.FullUrl + `/archivos/upload/imagenes/${_id}`
 
     return new Promise((resolve, reject) => {
-
 
       for (let i = 0; i < fotos.length; i++) {
 
@@ -135,23 +140,8 @@ export class ArchivosProvider {
   };
 
 
-  BorrarDir(PathDir, n) {
 
-    if (n == 0) {
-      this.file.removeRecursively(PathDir, 'cache')
-        .then(() => {
-        })
-        .catch(() => { });
-    } else if (n == 1) {
-      let Path = this.file.dataDirectory.split('files')[0];
-      this.file.removeRecursively(Path, 'files')
-        .then(() => {
-        })
-        .catch(() => { });
-    }
-  };
-
-
+  // Recibe el path de un objeto de audio, y lo sube al servidor
 
   async SubirAudio(Audio: string, _id) {
 
@@ -177,6 +167,28 @@ export class ArchivosProvider {
   };
 
 
+  // Borra un directorio del almacenamiento nativo,
+  // (Esto debería hacerlo otro provider)
+
+  BorrarDir(PathDir, n) {
+
+    if (n == 0) {
+      this.file.removeRecursively(PathDir, 'cache')
+        .then(() => {
+        })
+        .catch(() => { });
+    } else if (n == 1) {
+      let Path = this.file.dataDirectory.split('files')[0];
+      this.file.removeRecursively(Path, 'files')
+        .then(() => {
+        })
+        .catch(() => { });
+    }
+  };
+
+
+  // Lee la configuracion de ip y puerto del almacenamiento nativo, 
+  // esta es utilizada para hacer las peticiones http
 
   async leerConfig() {
 

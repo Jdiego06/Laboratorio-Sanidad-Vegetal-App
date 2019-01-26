@@ -1,3 +1,5 @@
+// Reursos de angular
+import { AlertController } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
@@ -12,6 +14,11 @@ import { RegistrosProvider } from './../../providers/registros/registros';
 import { ArchivosProvider } from './../../providers/archivos/archivos';
 
 
+// ---------------------------------------------------
+//                                                  --
+//          Página principal de la aplicación       --
+//                                                  --
+// ---------------------------------------------------
 
 
 @Component({
@@ -32,7 +39,8 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public registro: RegistrosProvider,
-    public archivo: ArchivosProvider
+    public archivo: ArchivosProvider,
+    public alertCtrl: AlertController
   ) { }
 
 
@@ -68,7 +76,7 @@ export class HomePage {
   };
 
 
-
+  // Navega a las demas páginas
 
   VerConfigPage() {
     this.navCtrl.push(ConfigPage)
@@ -76,12 +84,31 @@ export class HomePage {
 
 
   VerSearchPage() {
-    this.navCtrl.push(SearchPage)
+
+    if (this.ServerConection == false) {
+      const alert = this.alertCtrl.create({
+        title: 'Sin conexión',
+        subTitle: 'Por favor refresque la página o intente mas tarde',
+        buttons: ['Aceptar']
+      });
+      alert.present();
+    } else {
+      this.navCtrl.push(SearchPage)
+    }
   }
 
 
   VerForm1page() {
-    this.navCtrl.push(Form1Page)
-  }
 
+    if (this.ServerConection == false) {
+      const alert = this.alertCtrl.create({
+        title: 'Sin conexión',
+        subTitle: 'Por favor refresque la página o intente mas tarde',
+        buttons: ['Aceptar']
+      });
+      alert.present();
+    } else {
+      this.navCtrl.push(Form1Page)
+    }
+  }
 }

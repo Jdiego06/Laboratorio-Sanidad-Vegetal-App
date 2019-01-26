@@ -1,9 +1,22 @@
-import { FormResPage } from './../form-res/form-res';
-import { Form2Page } from './../form2/form2';
-import { RegistrosProvider } from './../../providers/registros/registros';
+// Recursos de angular
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, LoadingController, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+// Páginas
+import { FormResPage } from './../form-res/form-res';
+import { Form2Page } from './../form2/form2';
+
+// Providers
+import { RegistrosProvider } from './../../providers/registros/registros';
+
+
+
+// ---------------------------------------------------
+//                                                  --
+//      Página del formulario de la aplicación      --
+//                                                  --
+// ---------------------------------------------------
 
 
 @IonicPage()
@@ -16,7 +29,7 @@ export class Form1Page {
 
   myForm: FormGroup;
   ServerConection = false;
-
+  Saved: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -30,11 +43,55 @@ export class Form1Page {
     this.myForm = this.createMyForm();
   }
 
+
   ionViewWillEnter() {
     this.TestConection();
   };
 
 
+
+  // Pregunta al usuario, si desea abandonar la página, y cierra la misma de ser así
+
+  async  ionViewCanLeave() {
+
+    let res = false;
+    let prom1 = new Promise((resolve, reject) => {
+
+      if (this.Saved == false) {
+
+        const confirm = this.alertCtrl.create({
+          title: 'Abandonar Página',
+          message: 'Si abandona la página en este momento, el registro no se guardará.',
+          buttons: [
+            {
+              text: 'Cancelar',
+              handler: () => {
+                res = false;
+                resolve();
+              }
+            },
+            {
+              text: 'Aceptar',
+              handler: () => {
+                res = true;
+                resolve();
+              }
+            }
+          ]
+        });
+        confirm.present();
+      } else {
+        resolve();
+        res = true;
+      }
+    });
+
+    await prom1;
+    return (res)
+  }
+
+
+  // Prueba conexión con el servidor
 
   TestConection() {
     this.registro.TestConexion().then(() => {
@@ -61,6 +118,8 @@ export class Form1Page {
   };
 
 
+// Template del formulario 
+
   private createMyForm() {
     return this.formBuilder.group({
       descripcion: ['', Validators.required],
@@ -76,14 +135,17 @@ export class Form1Page {
   };
 
 
+// Guarda la información del formulario en el servidor
 
   saveData() {
+
+    this.Saved = true;
 
     if (!this.myForm.valid) {
       const alert = this.alertCtrl.create({
         title: 'Aún hay campos vacíos',
         subTitle: 'Para continuar llene los campos obligatorios marcados con *',
-        buttons: ['OK']
+        buttons: ['Aceptar']
       });
       alert.present();
     } else {
@@ -108,6 +170,8 @@ export class Form1Page {
   };
 
 
+// Navega a la página de respuesta, si ocurre un error,
+// o la página de carga de imagenes si se guardó correctamente
 
   VerFormResPage(ok) {
     this.navCtrl.push(FormResPage, { ok: ok })
