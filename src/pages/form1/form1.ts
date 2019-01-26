@@ -31,12 +31,10 @@ export class Form1Page {
   }
 
   ionViewWillEnter() {
-    console.log('Pagina principal');
     this.TestConection();
   };
 
 
-  // Pruba la conexion con el rest server
 
   TestConection() {
     this.registro.TestConexion().then(() => {
@@ -99,12 +97,10 @@ export class Form1Page {
 
       this.registro.EnviarRegistro(this.myForm.value)
         .then((res: any) => {
-          console.log('Navega Capturar imagenes, id: ' + res._id);
           loading.dismiss();
           this.VerForm2Page(res._id);
         })
         .catch(() => {
-          console.log('Navega Pagina de error');
           loading.dismiss();
           this.VerFormResPage(false);
         });

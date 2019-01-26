@@ -48,7 +48,6 @@ export class Form3Page {
 
   ionViewWillLeave() {
     if (this.RegisterFail == true) {
-      console.log('Se borrará el registro con id: ' + this._id);
       this.registro.BorrarRegistro(this._id).catch(() => { });
     };
   };
@@ -81,7 +80,6 @@ export class Form3Page {
   };
 
 
-
   startRecord() {
     this.AudioReady = false;
     this.filePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + this.fileName;
@@ -89,7 +87,6 @@ export class Form3Page {
     this.audio.startRecord();
     this.recording = true;
   }
-
 
   pauseRecord() {
     setTimeout(() => {
@@ -99,14 +96,12 @@ export class Form3Page {
     this.pause = true;
   }
 
-
   resumeRecord() {
     this.pause = false;
     this.recording = true;
     this.audio.resumeRecord();
   }
 
-  
   stopRecord() {
     setTimeout(() => {
       this.audio.stopRecord();
@@ -119,7 +114,6 @@ export class Form3Page {
     this.pause = false;
   }
 
-
   PlayAudio() {
     this.playing = true;
     this.audio.setVolume(1);
@@ -129,19 +123,16 @@ export class Form3Page {
     this.audio.play();
   }
 
-
   StopAudio() {
     this.audio.stop();
     this.playing = false;
   }
-
 
   BorrarAudio() {
     this.audio = undefined;
     this.AudioReady = false;
   }
 
-  
   GuardarReg() {
 
     let loading = this.loadingCtrl.create({
@@ -152,10 +143,10 @@ export class Form3Page {
     if (!this.audio) {
       this.RegisterFail = false;
       this.VerFormResPage(true)
+      loading.dismiss();
     } else {
       this.archivo.SubirAudio(this.filePath, this._id)
         .then(() => {
-          console.log('Se subio El archivo');
           this.RegisterFail = false;
           loading.dismiss();
           this.VerFormResPage(true);
@@ -166,7 +157,6 @@ export class Form3Page {
         });
     };
   };
-
 
   VerFormResPage(ok) {
     this.navCtrl.push(FormResPage, { ok: ok })

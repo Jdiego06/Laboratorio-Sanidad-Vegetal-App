@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar color='dark'>
-    <ion-title text-center>Buscar Registros</ion-title>
+    <ion-title>Buscar Registros</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -9,11 +9,8 @@
 
 <ion-content padding>
 
-
-
-
   <ion-item>
-    <ion-label floating>Parametro</ion-label>
+    <ion-label floating>Buscar Por</ion-label>
     <ion-select [(ngModel)]="parametro">
       <ion-option (ionSelect)="ClearReg($event)" *ngFor="let parametro of parametros; let i=index" [value]=i>{{parametro}}</ion-option>
     </ion-select>
@@ -25,7 +22,7 @@
   <br><br>
 
 
-  <ion-card *ngFor="let registro of results;let i=index">
+  <ion-card *ngFor="let registro of results;let i=index" (click)="VerRegistro(registro)">
     <ion-card-header>
       <ion-item-divider color="light">
         <h2><b>{{registro.fecha_creacion.fecha}}</b></h2>
@@ -38,7 +35,7 @@
       <b>Analista: </b>{{registro.analista}}
     </ion-card-header>
     <ion-card-content>
-      <b>Descripcion: </b>{{registro.descripcion}}
+      <b>Descripcion: </b>{{registro.descripcion.split(' ').slice(0 , 20).join(' ')}}...
       <br><br>
     </ion-card-content>
   </ion-card>

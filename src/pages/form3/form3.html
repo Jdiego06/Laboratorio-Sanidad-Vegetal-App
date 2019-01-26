@@ -29,7 +29,6 @@
   </div>
 
 
-
   <button disabled=true block icon-start *ngIf="recording&&!pause" ion-button color='light'>
     <ion-icon name="recording"></ion-icon>
     Grabando Audio...
@@ -40,7 +39,6 @@
     <ion-icon name="pause"></ion-icon>
     Grabacion en pausa...
   </button>
-
 
 
 
@@ -75,7 +73,6 @@
       No hay Audio
     </button>
 
-
     <button block (click)="PlayAudio()" icon-start *ngIf="AudioReady&&!playing" ion-button color='light'>
       <ion-icon name="play"></ion-icon>
       Reproducir
@@ -85,7 +82,6 @@
       <ion-icon name="square"></ion-icon>
       Detener
     </button>
-
 
     <button class=continuar ion-button full large color='dark' (click)="GuardarReg()" icon-start>
       <ion-icon>

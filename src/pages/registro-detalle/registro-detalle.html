@@ -1,0 +1,90 @@
+<ion-header>
+
+  <ion-navbar color='dark'>
+    <ion-title>Información del registro</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+
+  <ion-list>
+    <ion-list-header>
+      Registro N°: {{registro._id}} <br>
+      Creado el: {{registro.fecha_creacion.fecha}} <br>
+      Analista: {{registro.analista}}
+    </ion-list-header>
+
+    <hr>
+
+    <button block (click)="PlayAudio()" *ngIf="audio&&!playing" icon-start  ion-button color='light'>
+      <ion-icon name="play"></ion-icon>
+      Reproducir
+    </button>
+
+    <button block icon-start (click)='StopAudio()' *ngIf="audio&&playing" ion-button color='light'>
+      <ion-icon name="square"></ion-icon>
+      Detener
+    </button>
+
+    <hr>
+
+    <ion-item *ngIf="registro.descripcion">
+      <ion-icon item-start>
+        <i class="far fa-clipboard"></i>
+      </ion-icon>
+      <b> Descripción: </b><span class='text'>{{registro.descripcion}}</span>
+    </ion-item>
+
+    <ion-item *ngIf="registro.causa">
+      <ion-icon item-start>
+        <i class="fas fa-bug"></i>
+      </ion-icon>
+      <b> Causa: </b><span class='text'>{{registro.causa}}</span>
+    </ion-item>
+
+    <ion-item *ngIf="registro.cultivo">
+      <ion-icon ios="ios-leaf" md="ios-leaf" item-start></ion-icon>
+      <b> Cultivo: </b><span class='text'>{{registro.cultivo}}</span>
+    </ion-item>
+
+    <ion-item *ngIf="registro.metodo_cultivo">
+      <ion-icon item-start>
+        <i class="fas fa-seedling"></i>
+      </ion-icon>
+      <b> Método de cultivo: </b><span class='text'>{{registro.metodo_cultivo}}</span>
+    </ion-item>
+
+    <ion-item *ngIf="registro.metodo_produccion">
+      <ion-icon item-start>
+        <i class="fas fa-warehouse"></i>
+      </ion-icon>
+      <b> Método de producción: </b><span class='text'>{{registro.metodo_produccion}}</span>
+    </ion-item>
+
+    <ion-item *ngIf="registro.tipo_fruto">
+      <ion-icon name="nutrition" item-start></ion-icon>
+      <b> Tipo de fruto: </b><span class='text'>{{registro.tipo_fruto}}</span>
+    </ion-item>
+
+
+    <ion-item *ngIf="registro.lugar_procedencia">
+      <ion-icon name="pin" item-start></ion-icon>
+      <b> Lugar de procedencia: </b><span class='text'>{{registro.lugar_procedencia}}</span>
+    </ion-item>
+
+    <ion-item *ngIf="registro.tratamiento_sugerido">
+      <ion-icon item-start><i class="fas fa-syringe"></i></ion-icon>
+      <b> Tratamiento Sugerido: </b> <span class='text'>{{registro.tratamiento_sugerido}}</span>
+    </ion-item>
+  </ion-list>
+
+  <hr>
+
+  <img *ngFor="let foto of fotosData" [src]="foto" alt="">
+
+
+
+</ion-content>

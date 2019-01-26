@@ -6,6 +6,7 @@ import { File } from '@ionic-native/file';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, LoadingController, AlertController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 
@@ -24,7 +25,8 @@ export class Form2Page {
   ButtonDisabled: boolean = true;
   RegisterFail: boolean = true;
   ServerConection: boolean = false;
- 
+  foto: any;
+
   Cameraoptions: CameraOptions = {
     quality: 100,
     destinationType: this.camera.DestinationType.FILE_URI,
@@ -43,7 +45,8 @@ export class Form2Page {
     private viewCtrl: ViewController,
     public loadingCtrl: LoadingController,
     public registro: RegistrosProvider,
-    public alertCtrl:AlertController
+    public alertCtrl: AlertController,
+    public sanitizer: DomSanitizer
   ) { }
 
   ionViewWillEnter() {
@@ -55,6 +58,14 @@ export class Form2Page {
   ionViewDidLoad() {
     this._id = this.navParams.get('_id')
   }
+
+
+  ionViewWillLeave() {
+    if (this.RegisterFail == true) {
+      console.log('Se borrará el registro con id: ' + this._id);
+      this.registro.BorrarRegistro(this._id).catch(() => { });
+    };
+  };
 
 
   // Pruba la conexion con el rest server
@@ -113,11 +124,11 @@ export class Form2Page {
         this.ButtonDisabled = true;
       };
     });
+    console.log(this.foto);
   }
 
 
-
-
+  
   MostarImagen(imageData, from) {
 
 
@@ -146,7 +157,7 @@ export class Form2Page {
 
   SaveImages() {
 
-    if(this.ButtonDisabled) {
+    if (this.ButtonDisabled) {
       const alert = this.alertCtrl.create({
         title: 'Debe seleccionar al menos una fotografía',
         subTitle: 'Para continuar agregue fotografías al registro',

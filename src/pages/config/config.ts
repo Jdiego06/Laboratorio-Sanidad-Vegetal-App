@@ -52,9 +52,7 @@ export class ConfigPage {
           .setDuration(3000)
           .present();
       });
-    }).catch(err => {
-      console.log(err);
-    });
+    }).catch(err => { });
   };
 
   Save() {
@@ -85,15 +83,11 @@ export class ConfigPage {
   leerConfig() {
     this.storage.get('UrlServer').then((res) => {
       this.ip = res
-    }).catch((err) => {
-      console.log(err);
-    });
+    }).catch(() => { });
 
     this.storage.get('PortServer').then((res) => {
       this.port = res
-    }).catch((err) => {
-      console.log(err);
-    });
+    }).catch((err) => { });
   }
 
 

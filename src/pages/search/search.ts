@@ -1,3 +1,4 @@
+import { RegistroDetallePage } from './../registro-detalle/registro-detalle';
 import { RegistrosProvider } from './../../providers/registros/registros';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -49,38 +50,32 @@ export class SearchPage {
     this.results = [];
     this.desplazamiento = true;
 
-
-    console.log(typeof (this.query));
-
     if (this.query != '') {
-      console.log('ObtenerRegistro');
       this.registro.ObtenerRegistros(this.parametro, this.query, 0).then((Registros: any[]) => {
         if (Registros) {
           this.results = Registros;
-        } else {
-          console.log('No hay registros');
         }
       }).catch(() => { });
     };
-
   };
 
 
+  VerRegistro(registro) {
+    this.navCtrl.push(RegistroDetallePage, registro)
+  }
+
 
   doInfinite(infiniteScroll) {
-
 
     if (this.desplazamiento == true) {
       this.page = this.page + 1;
 
       this.registro.ObtenerRegistros(this.parametro, this.query, this.page).then((Registros: any[]) => {
-        console.log('Reg: ' + Registros[0]);
         if (Registros[0] != undefined) {
           Registros.forEach(element => {
             this.results.push(element);
           });
         } else {
-          console.log('No hay registros');
           this.desplazamiento = false;
         }
       }).catch(() => { });
@@ -90,7 +85,5 @@ export class SearchPage {
       infiniteScroll.complete();
     }, 1000);
   }
-
-
 
 }

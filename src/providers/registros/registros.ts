@@ -45,7 +45,7 @@ export class RegistrosProvider {
     });
   };
 
-   async EnviarRegistro(datos) {
+  async EnviarRegistro(datos) {
 
     await this.leerConfig();
 
@@ -60,7 +60,7 @@ export class RegistrosProvider {
           reject()
         }
       },
-        err => {
+        () => {
           reject();
         });
     });
@@ -69,21 +69,16 @@ export class RegistrosProvider {
 
 
 
-   async BorrarRegistro(_id: string) {
+  async BorrarRegistro(_id: string) {
 
     await this.leerConfig();
 
     return new Promise((resolve, reject) => {
 
-      this.http.delete(
-        this.FullUrl + `/registros/${_id}`,
-        this.httpOptions
-      )
+      this.http.delete(this.FullUrl + `/registros/${_id}`)
         .subscribe((res: any) => {
-          console.log('Done');
           resolve();
         }, () => {
-          console.log('Fail');
           reject();
         });
     });
@@ -91,11 +86,11 @@ export class RegistrosProvider {
 
 
 
-   async ObtenerRegistros(parametro, query, pagina) {
+  async ObtenerRegistros(parametro, query, pagina) {
 
     await this.leerConfig();
 
- 
+
     let parametrosBD = [
       'cultivo',
       'causa',
@@ -108,7 +103,7 @@ export class RegistrosProvider {
       'tratamiento_sugerido',
     ];
 
-    parametro=parametrosBD[parametro]
+    parametro = parametrosBD[parametro]
 
     let Parametros = {
       termino: query,
@@ -125,7 +120,7 @@ export class RegistrosProvider {
       this.http.get(this.FullUrl + `/registros/buscar/`, GetOptions)
         .subscribe((res: any) => {
           resolve(res.registroDb)
-        }, (err => {
+        }, (() => {
           reject();
         }));
     });
@@ -160,7 +155,6 @@ export class RegistrosProvider {
 
     await prom2
     this.FullUrl = 'http://' + this.UrlRestServer + ':' + this.PortRestServer
-    console.log('La Url es: ' + this.FullUrl);
     return new Promise((resolve, reject) => {
       resolve();
     });

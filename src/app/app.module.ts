@@ -24,7 +24,7 @@ import { Form1Page } from './../pages/form1/form1';
 import { Form3Page } from './../pages/form3/form3';
 import { Form2Page } from './../pages/form2/form2';
 import { FormResPage } from './../pages/form-res/form-res';
-
+import { RegistroDetallePage } from './../pages/registro-detalle/registro-detalle';
 
 
 // Providers
@@ -42,14 +42,14 @@ import { ArchivosProvider } from '../providers/archivos/archivos';
     Form1Page,
     Form3Page,
     Form2Page,
-    FormResPage
+    FormResPage,
+    RegistroDetallePage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpClientModule,
     IonicStorageModule.forRoot(),
-
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -60,7 +60,8 @@ import { ArchivosProvider } from '../providers/archivos/archivos';
     Form1Page,
     Form3Page,
     Form2Page,
-    FormResPage
+    FormResPage,
+    RegistroDetallePage
   ],
   providers: [
     StatusBar,
@@ -73,7 +74,7 @@ import { ArchivosProvider } from '../providers/archivos/archivos';
     FileTransferObject,
     ArchivosProvider,
     Media
-    
   ]
 })
+
 export class AppModule { }

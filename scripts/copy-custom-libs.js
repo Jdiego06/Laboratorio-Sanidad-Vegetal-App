@@ -5,11 +5,11 @@ const existingConfig = require('../node_modules/@ionic/app-scripts/config/copy.c
 
 module.exports = Object.assign(existingConfig, {
   copyFontawesomeFonts: {
-    src: ['{{ROOT}}/node_modules/font-awesome/fonts/**/*'],
-    dest: '{{WWW}}/assets/fonts'
+    src: ['{{ROOT}}/node_modules/@fortawesome/fontawesome-free/webfonts/**/*'],
+    dest: '{{WWW}}/assets/webfonts'
   },
   copyFontawesomeCss: {
-    src: ['{{ROOT}}/node_modules/font-awesome/css/all.css'],
+    src: ['{{ROOT}}/node_modules/@fortawesome/fontawesome-free/css/all.css'],
     dest: '{{WWW}}/assets/css'
   }
 }
